@@ -1,0 +1,2340 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="8/14/2020 1:31:03 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="LEARNINGMSSQLVM"
+  DTS:CreatorName="LEARNINGMSSQLVM\aagaianov"
+  DTS:DTSID="{CA420BB0-7CC6-456D-8491-517B19CC9B49}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.123"
+  DTS:LocaleID="1049"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="4"
+  DTS:VersionGUID="{50E2675B-E6E3-460C-9EA5-EDEF92A1D2D0}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[1C_alpha]"
+      DTS:CreationName="ODATA"
+      DTS:DTSID="{D664F1D9-3799-44E7-A4C9-5D92E387D34B}"
+      DTS:ObjectName="1C_alpha">
+      <DTS:ObjectData>
+        <ODataConnectionManager
+          UserName="OData"
+          Url="http://mars/alpha/odata/standard.odata/"
+          ConnectionString="Service Document Url=http://mars/alpha/odata/standard.odata/;Include Atom Elements=Auto;Include Expanded Entities=False;Integrated Security=False;User ID=OData;Persist Security Info=False;Time Out=600;Schema Sample Size=25;Retry Count=5;Retry Sleep=100;Keep Alive=False;Max Received Message Size=4398046511104"
+          MicrosoftOnlineServicesAuth="False"
+          AuthType="BasicAuthentication">
+          <Password
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA5Ldm4aK1UUKnEovvriMsbgAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAB+j4tpYnMqgk0UI7hv/X3R00uEOeM7agMTFhDwhsNJSAAAAAAOgAAAAAIAACAAAABh2q3jeeqnAidF+6RZF6qZwrc8+QqvQuRItiECWvjlVyAAAACffI6VYsu/LOQPsHaoOGxCM97ZWLp1tvEVxBnGGNGkUkAAAAD4l2kmSMyBIMWp6llLev+C7n4w0Eswrd6Wn/A4SQ2HSi2zDMZEoWBUh4nk8dPvV6maAYjQmkQ4Jh50TXyWhc6u</Password>
+        </ODataConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.DataTest]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{DE24F3F1-495F-4587-BB16-445E89A58D38}"
+      DTS:ObjectName="LocalHost.DataTest">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=.;Initial Catalog=DataTest;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Application Name=SSIS-Package-{DE24F3F1-495F-4587-BB16-445E89A58D38}LocalHost.DataTest;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Задача потока данных"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Задача потока данных"
+      DTS:DTSID="{9D9E08CF-32E3-411D-BD83-DB923AA6DE2B}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Задача потока данных"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Задача потока данных\Источник OData"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Источник данных OData; корпорация Майкрософт; Microsoft SQL Server; © Корпорация Майкрософт (Microsoft Corporation). Все права защищены. http://www.microsoft.com/sql/support0"
+              description="Читать данные из служб OData"
+              name="Источник OData"
+              usesDispositions="true">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Имя коллекции, которую требуется получить из службы."
+                  expressionType="Notify"
+                  name="CollectionName">Catalog_Номенклатура</property>
+                <property
+                  dataType="System.Int32"
+                  description="Максимальная длина по умолчанию для строки, для которой не задано значение maxlength в схеме."
+                  name="DefaultStringLength">4000</property>
+                <property
+                  dataType="System.String"
+                  description="Запрос в URL-адресе. "
+                  expressionType="Notify"
+                  name="Query">$top=100</property>
+                <property
+                  dataType="System.String"
+                  description="Путь ресурса коллекции, которую требуется получить из службы."
+                  expressionType="Notify"
+                  name="ResourcePath"></property>
+                <property
+                  dataType="System.Boolean"
+                  description="Если значение True, используйте путь ресурса как запрошенную коллекцию; в противном случае используйте имя коллекции."
+                  expressionType="Notify"
+                  name="UseResourcePath">false</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.OData</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Задача потока данных\Источник OData.Connections[Подключение]"
+                  connectionManagerID="Package.ConnectionManagers[1C_alpha]"
+                  connectionManagerRefId="Package.ConnectionManagers[1C_alpha]"
+                  description="Соединение со службой OData"
+                  name="Подключение" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Задача потока данных\Источник OData.Outputs[Output]"
+                  name="Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Ref_Key]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[Ref_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Ref_Key]"
+                      name="Ref_Key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Predefined]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[Predefined]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Predefined]"
+                      name="Predefined"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[DataVersion]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[DataVersion]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[DataVersion]"
+                      name="DataVersion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Description]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[Description]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Description]"
+                      name="Description"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Code]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[Code]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Code]"
+                      name="Code"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Parent_Key]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[Parent_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Parent_Key]"
+                      name="Parent_Key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[IsFolder]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[IsFolder]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[IsFolder]"
+                      name="IsFolder"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[DeletionMark]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[DeletionMark]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[DeletionMark]"
+                      name="DeletionMark"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Артикул]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[Артикул]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Артикул]"
+                      name="Артикул"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ВидНоменклатуры_Key]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ВидНоменклатуры_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ВидНоменклатуры_Key]"
+                      name="ВидНоменклатуры_Key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Весовой]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[Весовой]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Весовой]"
+                      name="Весовой"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ВесовойКоэффициентВхождения]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ВесовойКоэффициентВхождения]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ВесовойКоэффициентВхождения]"
+                      name="ВесовойКоэффициентВхождения"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ВестиОперативныйУчетОстатковНЗП]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ВестиОперативныйУчетОстатковНЗП]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ВестиОперативныйУчетОстатковНЗП]"
+                      name="ВестиОперативныйУчетОстатковНЗП"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ВестиПартионныйУчетПоСериям]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ВестиПартионныйУчетПоСериям]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ВестиПартионныйУчетПоСериям]"
+                      name="ВестиПартионныйУчетПоСериям"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ВестиУчетПоСериям]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ВестиУчетПоСериям]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ВестиУчетПоСериям]"
+                      name="ВестиУчетПоСериям"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ВестиУчетПоСериямВНЗП]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ВестиУчетПоСериямВНЗП]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ВестиУчетПоСериямВНЗП]"
+                      name="ВестиУчетПоСериямВНЗП"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ВестиУчетПоХарактеристикам]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ВестиУчетПоХарактеристикам]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ВестиУчетПоХарактеристикам]"
+                      name="ВестиУчетПоХарактеристикам"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ВидВоспроизводства]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ВидВоспроизводства]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ВидВоспроизводства]"
+                      name="ВидВоспроизводства"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[БазоваяЕдиницаИзмерения_Key]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[БазоваяЕдиницаИзмерения_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[БазоваяЕдиницаИзмерения_Key]"
+                      name="БазоваяЕдиницаИзмерения_Key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ЕдиницаДляОтчетов_Key]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ЕдиницаДляОтчетов_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ЕдиницаДляОтчетов_Key]"
+                      name="ЕдиницаДляОтчетов_Key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ЕдиницаХраненияОстатков_Key]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ЕдиницаХраненияОстатков_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ЕдиницаХраненияОстатков_Key]"
+                      name="ЕдиницаХраненияОстатков_Key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[СтавкаНДС]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[СтавкаНДС]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[СтавкаНДС]"
+                      name="СтавкаНДС"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Набор]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[Набор]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Набор]"
+                      name="Набор"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[НазначениеИспользования_Key]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[НазначениеИспользования_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[НазначениеИспользования_Key]"
+                      name="НазначениеИспользования_Key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Комментарий]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[Комментарий]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Комментарий]"
+                      name="Комментарий"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Услуга]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[Услуга]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Услуга]"
+                      name="Услуга"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[НоменклатурнаяГруппаЗатрат_Key]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[НоменклатурнаяГруппаЗатрат_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[НоменклатурнаяГруппаЗатрат_Key]"
+                      name="НоменклатурнаяГруппаЗатрат_Key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[НоменклатурнаяГруппа_Key]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[НоменклатурнаяГруппа_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[НоменклатурнаяГруппа_Key]"
+                      name="НоменклатурнаяГруппа_Key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ОсновноеИзображение_Key]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ОсновноеИзображение_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ОсновноеИзображение_Key]"
+                      name="ОсновноеИзображение_Key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ОсновнойПоставщик_Key]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ОсновнойПоставщик_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ОсновнойПоставщик_Key]"
+                      name="ОсновнойПоставщик_Key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ОтветственныйМенеджерЗаПокупки_Key]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ОтветственныйМенеджерЗаПокупки_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ОтветственныйМенеджерЗаПокупки_Key]"
+                      name="ОтветственныйМенеджерЗаПокупки_Key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[СтранаПроисхождения_Key]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[СтранаПроисхождения_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[СтранаПроисхождения_Key]"
+                      name="СтранаПроисхождения_Key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[НомерГТД_Key]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[НомерГТД_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[НомерГТД_Key]"
+                      name="НомерГТД_Key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[СтатьяЗатрат_Key]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[СтатьяЗатрат_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[СтатьяЗатрат_Key]"
+                      name="СтатьяЗатрат_Key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ТребуетсяВнешняяСертификация]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ТребуетсяВнешняяСертификация]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ТребуетсяВнешняяСертификация]"
+                      name="ТребуетсяВнешняяСертификация"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ТребуетсяВнутренняяСертификация]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ТребуетсяВнутренняяСертификация]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ТребуетсяВнутренняяСертификация]"
+                      name="ТребуетсяВнутренняяСертификация"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Производитель_Key]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[Производитель_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Производитель_Key]"
+                      name="Производитель_Key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ВестиСерийныеНомера]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ВестиСерийныеНомера]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ВестиСерийныеНомера]"
+                      name="ВестиСерийныеНомера"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Комплект]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[Комплект]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Комплект]"
+                      name="Комплект"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[НаправлениеВыпуска]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[НаправлениеВыпуска]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[НаправлениеВыпуска]"
+                      name="НаправлениеВыпуска"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[НаправлениеСписанияВыпущеннойПродукции_Key]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[НаправлениеСписанияВыпущеннойПродукции_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[НаправлениеСписанияВыпущеннойПродукции_Key]"
+                      name="НаправлениеСписанияВыпущеннойПродукции_Key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ПорядокПрисвоенияСерийногоНомера_Key]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ПорядокПрисвоенияСерийногоНомера_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ПорядокПрисвоенияСерийногоНомера_Key]"
+                      name="ПорядокПрисвоенияСерийногоНомера_Key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ЦеноваяГруппа_Key]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ЦеноваяГруппа_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ЦеноваяГруппа_Key]"
+                      name="ЦеноваяГруппа_Key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ОКП_Key]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ОКП_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ОКП_Key]"
+                      name="ОКП_Key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ЕдиницаИзмеренияМест_Key]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ЕдиницаИзмеренияМест_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ЕдиницаИзмеренияМест_Key]"
+                      name="ЕдиницаИзмеренияМест_Key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ДополнительноеОписаниеНоменклатуры]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ДополнительноеОписаниеНоменклатуры]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ДополнительноеОписаниеНоменклатуры]"
+                      name="ДополнительноеОписаниеНоменклатуры"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Импортер_Key]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[Импортер_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Импортер_Key]"
+                      name="Импортер_Key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[КодТНВЭД_Key]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[КодТНВЭД_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[КодТНВЭД_Key]"
+                      name="КодТНВЭД_Key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ДополнительноеОписаниеНоменклатурыВФорматеHTML]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ДополнительноеОписаниеНоменклатурыВФорматеHTML]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ДополнительноеОписаниеНоменклатурыВФорматеHTML]"
+                      name="ДополнительноеОписаниеНоменклатурыВФорматеHTML"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[АлкогольнаяПродукция]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[АлкогольнаяПродукция]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[АлкогольнаяПродукция]"
+                      name="АлкогольнаяПродукция"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ИмпортнаяАлкогольнаяПродукция]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ИмпортнаяАлкогольнаяПродукция]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ИмпортнаяАлкогольнаяПродукция]"
+                      name="ИмпортнаяАлкогольнаяПродукция"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[АлкогольнаяПродукцияВоВскрытойТаре]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[АлкогольнаяПродукцияВоВскрытойТаре]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[АлкогольнаяПродукцияВоВскрытойТаре]"
+                      name="АлкогольнаяПродукцияВоВскрытойТаре"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ОбъемДАЛ]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ОбъемДАЛ]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ОбъемДАЛ]"
+                      name="ОбъемДАЛ"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ВидАлкогольнойПродукцииЕГАИС_Key]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ВидАлкогольнойПродукцииЕГАИС_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ВидАлкогольнойПродукцииЕГАИС_Key]"
+                      name="ВидАлкогольнойПродукцииЕГАИС_Key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Крепость]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[Крепость]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Крепость]"
+                      name="Крепость"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[НаименованиеПолное]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[НаименованиеПолное]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[НаименованиеПолное]"
+                      name="НаименованиеПолное"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Альфа_ТорговаяМарка_Key]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[Альфа_ТорговаяМарка_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Альфа_ТорговаяМарка_Key]"
+                      name="Альфа_ТорговаяМарка_Key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Аналог_Key]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[Аналог_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Аналог_Key]"
+                      name="Аналог_Key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ПризнакЦветности]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ПризнакЦветности]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ПризнакЦветности]"
+                      name="ПризнакЦветности"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ТабачнаяПродукция]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ТабачнаяПродукция]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ТабачнаяПродукция]"
+                      name="ТабачнаяПродукция"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[КодРаздел7ДекларацииНДС_Key]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[КодРаздел7ДекларацииНДС_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[КодРаздел7ДекларацииНДС_Key]"
+                      name="КодРаздел7ДекларацииНДС_Key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ОбувнаяПродукция]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ОбувнаяПродукция]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ОбувнаяПродукция]"
+                      name="ОбувнаяПродукция"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ВидНоменклатурнойКлассификации]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ВидНоменклатурнойКлассификации]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ВидНоменклатурнойКлассификации]"
+                      name="ВидНоменклатурнойКлассификации"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ВидПродукцииИС]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ВидПродукцииИС]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ВидПродукцииИС]"
+                      name="ВидПродукцииИС"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[Ref_Key]"
+                      dataType="guid"
+                      name="Ref_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[Predefined]"
+                      dataType="bool"
+                      name="Predefined" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[DataVersion]"
+                      dataType="nText"
+                      name="DataVersion" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[Description]"
+                      dataType="nText"
+                      name="Description" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[Code]"
+                      dataType="nText"
+                      name="Code" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[Parent_Key]"
+                      dataType="guid"
+                      name="Parent_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[IsFolder]"
+                      dataType="bool"
+                      name="IsFolder" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[DeletionMark]"
+                      dataType="bool"
+                      name="DeletionMark" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[Артикул]"
+                      dataType="nText"
+                      name="Артикул" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ВидНоменклатуры_Key]"
+                      dataType="guid"
+                      name="ВидНоменклатуры_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[Весовой]"
+                      dataType="bool"
+                      name="Весовой" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ВесовойКоэффициентВхождения]"
+                      dataType="i8"
+                      name="ВесовойКоэффициентВхождения" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ВестиОперативныйУчетОстатковНЗП]"
+                      dataType="bool"
+                      name="ВестиОперативныйУчетОстатковНЗП" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ВестиПартионныйУчетПоСериям]"
+                      dataType="bool"
+                      name="ВестиПартионныйУчетПоСериям" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ВестиУчетПоСериям]"
+                      dataType="bool"
+                      name="ВестиУчетПоСериям" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ВестиУчетПоСериямВНЗП]"
+                      dataType="bool"
+                      name="ВестиУчетПоСериямВНЗП" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ВестиУчетПоХарактеристикам]"
+                      dataType="bool"
+                      name="ВестиУчетПоХарактеристикам" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ВидВоспроизводства]"
+                      dataType="nText"
+                      name="ВидВоспроизводства" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[БазоваяЕдиницаИзмерения_Key]"
+                      dataType="guid"
+                      name="БазоваяЕдиницаИзмерения_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ЕдиницаДляОтчетов_Key]"
+                      dataType="guid"
+                      name="ЕдиницаДляОтчетов_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ЕдиницаХраненияОстатков_Key]"
+                      dataType="guid"
+                      name="ЕдиницаХраненияОстатков_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[СтавкаНДС]"
+                      dataType="nText"
+                      name="СтавкаНДС" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[Набор]"
+                      dataType="bool"
+                      name="Набор" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[НазначениеИспользования_Key]"
+                      dataType="guid"
+                      name="НазначениеИспользования_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[Комментарий]"
+                      dataType="nText"
+                      name="Комментарий" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[Услуга]"
+                      dataType="bool"
+                      name="Услуга" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[НоменклатурнаяГруппаЗатрат_Key]"
+                      dataType="guid"
+                      name="НоменклатурнаяГруппаЗатрат_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[НоменклатурнаяГруппа_Key]"
+                      dataType="guid"
+                      name="НоменклатурнаяГруппа_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ОсновноеИзображение_Key]"
+                      dataType="guid"
+                      name="ОсновноеИзображение_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ОсновнойПоставщик_Key]"
+                      dataType="guid"
+                      name="ОсновнойПоставщик_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ОтветственныйМенеджерЗаПокупки_Key]"
+                      dataType="guid"
+                      name="ОтветственныйМенеджерЗаПокупки_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[СтранаПроисхождения_Key]"
+                      dataType="guid"
+                      name="СтранаПроисхождения_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[НомерГТД_Key]"
+                      dataType="guid"
+                      name="НомерГТД_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[СтатьяЗатрат_Key]"
+                      dataType="guid"
+                      name="СтатьяЗатрат_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ТребуетсяВнешняяСертификация]"
+                      dataType="bool"
+                      name="ТребуетсяВнешняяСертификация" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ТребуетсяВнутренняяСертификация]"
+                      dataType="bool"
+                      name="ТребуетсяВнутренняяСертификация" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[Производитель_Key]"
+                      dataType="guid"
+                      name="Производитель_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ВестиСерийныеНомера]"
+                      dataType="bool"
+                      name="ВестиСерийныеНомера" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[Комплект]"
+                      dataType="bool"
+                      name="Комплект" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[НаправлениеВыпуска]"
+                      dataType="nText"
+                      name="НаправлениеВыпуска" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[НаправлениеСписанияВыпущеннойПродукции_Key]"
+                      dataType="guid"
+                      name="НаправлениеСписанияВыпущеннойПродукции_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ПорядокПрисвоенияСерийногоНомера_Key]"
+                      dataType="guid"
+                      name="ПорядокПрисвоенияСерийногоНомера_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ЦеноваяГруппа_Key]"
+                      dataType="guid"
+                      name="ЦеноваяГруппа_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ОКП_Key]"
+                      dataType="guid"
+                      name="ОКП_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ЕдиницаИзмеренияМест_Key]"
+                      dataType="guid"
+                      name="ЕдиницаИзмеренияМест_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ДополнительноеОписаниеНоменклатуры]"
+                      dataType="nText"
+                      name="ДополнительноеОписаниеНоменклатуры" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[Импортер_Key]"
+                      dataType="guid"
+                      name="Импортер_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[КодТНВЭД_Key]"
+                      dataType="guid"
+                      name="КодТНВЭД_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ДополнительноеОписаниеНоменклатурыВФорматеHTML]"
+                      dataType="bool"
+                      name="ДополнительноеОписаниеНоменклатурыВФорматеHTML" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[АлкогольнаяПродукция]"
+                      dataType="bool"
+                      name="АлкогольнаяПродукция" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ИмпортнаяАлкогольнаяПродукция]"
+                      dataType="bool"
+                      name="ИмпортнаяАлкогольнаяПродукция" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[АлкогольнаяПродукцияВоВскрытойТаре]"
+                      dataType="bool"
+                      name="АлкогольнаяПродукцияВоВскрытойТаре" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ОбъемДАЛ]"
+                      dataType="r8"
+                      name="ОбъемДАЛ" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ВидАлкогольнойПродукцииЕГАИС_Key]"
+                      dataType="guid"
+                      name="ВидАлкогольнойПродукцииЕГАИС_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[Крепость]"
+                      dataType="r8"
+                      name="Крепость" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[НаименованиеПолное]"
+                      dataType="nText"
+                      name="НаименованиеПолное" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[Альфа_ТорговаяМарка_Key]"
+                      dataType="guid"
+                      name="Альфа_ТорговаяМарка_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[Аналог_Key]"
+                      dataType="guid"
+                      name="Аналог_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ПризнакЦветности]"
+                      dataType="bool"
+                      name="ПризнакЦветности" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ТабачнаяПродукция]"
+                      dataType="bool"
+                      name="ТабачнаяПродукция" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[КодРаздел7ДекларацииНДС_Key]"
+                      dataType="guid"
+                      name="КодРаздел7ДекларацииНДС_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ОбувнаяПродукция]"
+                      dataType="bool"
+                      name="ОбувнаяПродукция" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ВидНоменклатурнойКлассификации]"
+                      dataType="nText"
+                      name="ВидНоменклатурнойКлассификации" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Output].ExternalColumns[ВидПродукцииИС]"
+                      dataType="nText"
+                      name="ВидПродукцииИС" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Задача потока данных\Источник OData.Outputs[Error output]"
+                  isErrorOut="true"
+                  name="Error output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[Ref_Key]"
+                      dataType="guid"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[Ref_Key]"
+                      name="Ref_Key" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[Predefined]"
+                      dataType="bool"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[Predefined]"
+                      name="Predefined" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[DataVersion]"
+                      dataType="nText"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[DataVersion]"
+                      name="DataVersion" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[Description]"
+                      dataType="nText"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[Description]"
+                      name="Description" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[Code]"
+                      dataType="nText"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[Code]"
+                      name="Code" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[Parent_Key]"
+                      dataType="guid"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[Parent_Key]"
+                      name="Parent_Key" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[IsFolder]"
+                      dataType="bool"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[IsFolder]"
+                      name="IsFolder" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[DeletionMark]"
+                      dataType="bool"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[DeletionMark]"
+                      name="DeletionMark" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[Артикул]"
+                      dataType="nText"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[Артикул]"
+                      name="Артикул" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ВидНоменклатуры_Key]"
+                      dataType="guid"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ВидНоменклатуры_Key]"
+                      name="ВидНоменклатуры_Key" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[Весовой]"
+                      dataType="bool"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[Весовой]"
+                      name="Весовой" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ВесовойКоэффициентВхождения]"
+                      dataType="i8"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ВесовойКоэффициентВхождения]"
+                      name="ВесовойКоэффициентВхождения" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ВестиОперативныйУчетОстатковНЗП]"
+                      dataType="bool"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ВестиОперативныйУчетОстатковНЗП]"
+                      name="ВестиОперативныйУчетОстатковНЗП" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ВестиПартионныйУчетПоСериям]"
+                      dataType="bool"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ВестиПартионныйУчетПоСериям]"
+                      name="ВестиПартионныйУчетПоСериям" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ВестиУчетПоСериям]"
+                      dataType="bool"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ВестиУчетПоСериям]"
+                      name="ВестиУчетПоСериям" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ВестиУчетПоСериямВНЗП]"
+                      dataType="bool"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ВестиУчетПоСериямВНЗП]"
+                      name="ВестиУчетПоСериямВНЗП" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ВестиУчетПоХарактеристикам]"
+                      dataType="bool"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ВестиУчетПоХарактеристикам]"
+                      name="ВестиУчетПоХарактеристикам" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ВидВоспроизводства]"
+                      dataType="nText"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ВидВоспроизводства]"
+                      name="ВидВоспроизводства" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[БазоваяЕдиницаИзмерения_Key]"
+                      dataType="guid"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[БазоваяЕдиницаИзмерения_Key]"
+                      name="БазоваяЕдиницаИзмерения_Key" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ЕдиницаДляОтчетов_Key]"
+                      dataType="guid"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ЕдиницаДляОтчетов_Key]"
+                      name="ЕдиницаДляОтчетов_Key" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ЕдиницаХраненияОстатков_Key]"
+                      dataType="guid"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ЕдиницаХраненияОстатков_Key]"
+                      name="ЕдиницаХраненияОстатков_Key" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[СтавкаНДС]"
+                      dataType="nText"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[СтавкаНДС]"
+                      name="СтавкаНДС" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[Набор]"
+                      dataType="bool"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[Набор]"
+                      name="Набор" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[НазначениеИспользования_Key]"
+                      dataType="guid"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[НазначениеИспользования_Key]"
+                      name="НазначениеИспользования_Key" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[Комментарий]"
+                      dataType="nText"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[Комментарий]"
+                      name="Комментарий" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[Услуга]"
+                      dataType="bool"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[Услуга]"
+                      name="Услуга" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[НоменклатурнаяГруппаЗатрат_Key]"
+                      dataType="guid"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[НоменклатурнаяГруппаЗатрат_Key]"
+                      name="НоменклатурнаяГруппаЗатрат_Key" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[НоменклатурнаяГруппа_Key]"
+                      dataType="guid"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[НоменклатурнаяГруппа_Key]"
+                      name="НоменклатурнаяГруппа_Key" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ОсновноеИзображение_Key]"
+                      dataType="guid"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ОсновноеИзображение_Key]"
+                      name="ОсновноеИзображение_Key" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ОсновнойПоставщик_Key]"
+                      dataType="guid"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ОсновнойПоставщик_Key]"
+                      name="ОсновнойПоставщик_Key" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ОтветственныйМенеджерЗаПокупки_Key]"
+                      dataType="guid"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ОтветственныйМенеджерЗаПокупки_Key]"
+                      name="ОтветственныйМенеджерЗаПокупки_Key" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[СтранаПроисхождения_Key]"
+                      dataType="guid"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[СтранаПроисхождения_Key]"
+                      name="СтранаПроисхождения_Key" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[НомерГТД_Key]"
+                      dataType="guid"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[НомерГТД_Key]"
+                      name="НомерГТД_Key" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[СтатьяЗатрат_Key]"
+                      dataType="guid"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[СтатьяЗатрат_Key]"
+                      name="СтатьяЗатрат_Key" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ТребуетсяВнешняяСертификация]"
+                      dataType="bool"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ТребуетсяВнешняяСертификация]"
+                      name="ТребуетсяВнешняяСертификация" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ТребуетсяВнутренняяСертификация]"
+                      dataType="bool"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ТребуетсяВнутренняяСертификация]"
+                      name="ТребуетсяВнутренняяСертификация" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[Производитель_Key]"
+                      dataType="guid"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[Производитель_Key]"
+                      name="Производитель_Key" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ВестиСерийныеНомера]"
+                      dataType="bool"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ВестиСерийныеНомера]"
+                      name="ВестиСерийныеНомера" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[Комплект]"
+                      dataType="bool"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[Комплект]"
+                      name="Комплект" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[НаправлениеВыпуска]"
+                      dataType="nText"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[НаправлениеВыпуска]"
+                      name="НаправлениеВыпуска" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[НаправлениеСписанияВыпущеннойПродукции_Key]"
+                      dataType="guid"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[НаправлениеСписанияВыпущеннойПродукции_Key]"
+                      name="НаправлениеСписанияВыпущеннойПродукции_Key" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ПорядокПрисвоенияСерийногоНомера_Key]"
+                      dataType="guid"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ПорядокПрисвоенияСерийногоНомера_Key]"
+                      name="ПорядокПрисвоенияСерийногоНомера_Key" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ЦеноваяГруппа_Key]"
+                      dataType="guid"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ЦеноваяГруппа_Key]"
+                      name="ЦеноваяГруппа_Key" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ОКП_Key]"
+                      dataType="guid"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ОКП_Key]"
+                      name="ОКП_Key" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ЕдиницаИзмеренияМест_Key]"
+                      dataType="guid"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ЕдиницаИзмеренияМест_Key]"
+                      name="ЕдиницаИзмеренияМест_Key" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ДополнительноеОписаниеНоменклатуры]"
+                      dataType="nText"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ДополнительноеОписаниеНоменклатуры]"
+                      name="ДополнительноеОписаниеНоменклатуры" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[Импортер_Key]"
+                      dataType="guid"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[Импортер_Key]"
+                      name="Импортер_Key" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[КодТНВЭД_Key]"
+                      dataType="guid"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[КодТНВЭД_Key]"
+                      name="КодТНВЭД_Key" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ДополнительноеОписаниеНоменклатурыВФорматеHTML]"
+                      dataType="bool"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ДополнительноеОписаниеНоменклатурыВФорматеHTML]"
+                      name="ДополнительноеОписаниеНоменклатурыВФорматеHTML" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[АлкогольнаяПродукция]"
+                      dataType="bool"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[АлкогольнаяПродукция]"
+                      name="АлкогольнаяПродукция" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ИмпортнаяАлкогольнаяПродукция]"
+                      dataType="bool"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ИмпортнаяАлкогольнаяПродукция]"
+                      name="ИмпортнаяАлкогольнаяПродукция" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[АлкогольнаяПродукцияВоВскрытойТаре]"
+                      dataType="bool"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[АлкогольнаяПродукцияВоВскрытойТаре]"
+                      name="АлкогольнаяПродукцияВоВскрытойТаре" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ОбъемДАЛ]"
+                      dataType="r8"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ОбъемДАЛ]"
+                      name="ОбъемДАЛ" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ВидАлкогольнойПродукцииЕГАИС_Key]"
+                      dataType="guid"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ВидАлкогольнойПродукцииЕГАИС_Key]"
+                      name="ВидАлкогольнойПродукцииЕГАИС_Key" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[Крепость]"
+                      dataType="r8"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[Крепость]"
+                      name="Крепость" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[НаименованиеПолное]"
+                      dataType="nText"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[НаименованиеПолное]"
+                      name="НаименованиеПолное" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[Альфа_ТорговаяМарка_Key]"
+                      dataType="guid"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[Альфа_ТорговаяМарка_Key]"
+                      name="Альфа_ТорговаяМарка_Key" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[Аналог_Key]"
+                      dataType="guid"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[Аналог_Key]"
+                      name="Аналог_Key" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ПризнакЦветности]"
+                      dataType="bool"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ПризнакЦветности]"
+                      name="ПризнакЦветности" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ТабачнаяПродукция]"
+                      dataType="bool"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ТабачнаяПродукция]"
+                      name="ТабачнаяПродукция" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[КодРаздел7ДекларацииНДС_Key]"
+                      dataType="guid"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[КодРаздел7ДекларацииНДС_Key]"
+                      name="КодРаздел7ДекларацииНДС_Key" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ОбувнаяПродукция]"
+                      dataType="bool"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ОбувнаяПродукция]"
+                      name="ОбувнаяПродукция" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ВидНоменклатурнойКлассификации]"
+                      dataType="nText"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ВидНоменклатурнойКлассификации]"
+                      name="ВидНоменклатурнойКлассификации" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ВидПродукцииИС]"
+                      dataType="nText"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Error output].Columns[ВидПродукцииИС]"
+                      name="ВидПродукцииИС" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Назначение &quot;OLE DB&quot;;Корпорация Майкрософт. Microsoft SQL Server. (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены. http://www.microsoft.com/sql/support;4"
+              description="Назначение &quot;OLE DB&quot;"
+              name="Назначение &quot;OLE DB&quot;"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Время ожидания команды, в секундах. Величина 0 означает неограниченное время ожидания."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает имя объекта базы данных, используемого для открытия набора строк."
+                  name="OpenRowset">[Справочник_Номенклатура]</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает переменную, содержащую имя объекта базы данных, используемого для открытия набора строк."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Команда SQL для выполнения."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает кодовую страницу столбца, используемую, когда недоступны сведения о кодовой странице из источника данных."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Вызывает безусловное использование значение свойства DefaultCodePage при описании символьных данных."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает используемый режим доступа к базе данных."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Указывает, должны ли значения в столбцах идентификаторов копироваться в назначение. Если свойство имеет значение false, значения в столбцах идентификаторов будут созданы автоматически в месте назначения. Применяется только в том случае, если включена быстрая загрузка."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Указывает, будут ли в назначение вставляться значения NULL для столбцов, содержащих их. Значение false показывает, что если столбец имеет значение NULL, то в назначение будет вставлено его значение по умолчанию. Применяется только в случае, если включена быстрая загрузка."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Задает параметры быстрой загрузки. Применяется только в том случае, если включена быстрая загрузка."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Задает, когда выдаются сообщения о фиксации транзакции в ходе вставки данных. Значение 0 задает, что по окончании вставки данных будет выдано одно сообщение о фиксации транзакции. Применяется только в том случае, если включена быстрая загрузка."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.DataTest]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.DataTest]"
+                  description="Соединение OLE DB среды выполнения, используемое для доступа к базе данных."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;]"
+                  errorOrTruncationOperation="Вставить"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Вход назначения &quot;OLE DB&quot;">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[Ref_Key]"
+                      cachedDataType="guid"
+                      cachedName="Ref_Key"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Ref_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Ref_Key]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[Predefined]"
+                      cachedDataType="bool"
+                      cachedName="Predefined"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Predefined]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Predefined]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[DataVersion]"
+                      cachedDataType="nText"
+                      cachedName="DataVersion"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[DataVersion]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[DataVersion]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[Description]"
+                      cachedDataType="nText"
+                      cachedName="Description"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Description]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Description]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[Code]"
+                      cachedDataType="nText"
+                      cachedName="Code"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Code]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Code]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[Parent_Key]"
+                      cachedDataType="guid"
+                      cachedName="Parent_Key"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Parent_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Parent_Key]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[IsFolder]"
+                      cachedDataType="bool"
+                      cachedName="IsFolder"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[IsFolder]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[IsFolder]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[DeletionMark]"
+                      cachedDataType="bool"
+                      cachedName="DeletionMark"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[DeletionMark]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[DeletionMark]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[Артикул]"
+                      cachedDataType="nText"
+                      cachedName="Артикул"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Артикул]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Артикул]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[ВидНоменклатуры_Key]"
+                      cachedDataType="guid"
+                      cachedName="ВидНоменклатуры_Key"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ВидНоменклатуры_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ВидНоменклатуры_Key]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[Весовой]"
+                      cachedDataType="bool"
+                      cachedName="Весовой"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Весовой]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Весовой]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[ВесовойКоэффициентВхождения]"
+                      cachedDataType="i8"
+                      cachedName="ВесовойКоэффициентВхождения"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ВесовойКоэффициентВхождения]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ВесовойКоэффициентВхождения]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[ВестиОперативныйУчетОстатковНЗП]"
+                      cachedDataType="bool"
+                      cachedName="ВестиОперативныйУчетОстатковНЗП"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ВестиОперативныйУчетОстатковНЗП]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ВестиОперативныйУчетОстатковНЗП]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[ВестиПартионныйУчетПоСериям]"
+                      cachedDataType="bool"
+                      cachedName="ВестиПартионныйУчетПоСериям"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ВестиПартионныйУчетПоСериям]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ВестиПартионныйУчетПоСериям]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[ВестиУчетПоСериям]"
+                      cachedDataType="bool"
+                      cachedName="ВестиУчетПоСериям"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ВестиУчетПоСериям]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ВестиУчетПоСериям]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[ВестиУчетПоСериямВНЗП]"
+                      cachedDataType="bool"
+                      cachedName="ВестиУчетПоСериямВНЗП"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ВестиУчетПоСериямВНЗП]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ВестиУчетПоСериямВНЗП]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[ВестиУчетПоХарактеристикам]"
+                      cachedDataType="bool"
+                      cachedName="ВестиУчетПоХарактеристикам"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ВестиУчетПоХарактеристикам]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ВестиУчетПоХарактеристикам]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[ВидВоспроизводства]"
+                      cachedDataType="nText"
+                      cachedName="ВидВоспроизводства"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ВидВоспроизводства]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ВидВоспроизводства]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[БазоваяЕдиницаИзмерения_Key]"
+                      cachedDataType="guid"
+                      cachedName="БазоваяЕдиницаИзмерения_Key"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[БазоваяЕдиницаИзмерения_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[БазоваяЕдиницаИзмерения_Key]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[ЕдиницаДляОтчетов_Key]"
+                      cachedDataType="guid"
+                      cachedName="ЕдиницаДляОтчетов_Key"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ЕдиницаДляОтчетов_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ЕдиницаДляОтчетов_Key]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[ЕдиницаХраненияОстатков_Key]"
+                      cachedDataType="guid"
+                      cachedName="ЕдиницаХраненияОстатков_Key"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ЕдиницаХраненияОстатков_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ЕдиницаХраненияОстатков_Key]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[СтавкаНДС]"
+                      cachedDataType="nText"
+                      cachedName="СтавкаНДС"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[СтавкаНДС]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[СтавкаНДС]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[Набор]"
+                      cachedDataType="bool"
+                      cachedName="Набор"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Набор]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Набор]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[НазначениеИспользования_Key]"
+                      cachedDataType="guid"
+                      cachedName="НазначениеИспользования_Key"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[НазначениеИспользования_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[НазначениеИспользования_Key]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[Комментарий]"
+                      cachedDataType="nText"
+                      cachedName="Комментарий"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Комментарий]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Комментарий]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[Услуга]"
+                      cachedDataType="bool"
+                      cachedName="Услуга"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Услуга]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Услуга]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[НоменклатурнаяГруппаЗатрат_Key]"
+                      cachedDataType="guid"
+                      cachedName="НоменклатурнаяГруппаЗатрат_Key"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[НоменклатурнаяГруппаЗатрат_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[НоменклатурнаяГруппаЗатрат_Key]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[НоменклатурнаяГруппа_Key]"
+                      cachedDataType="guid"
+                      cachedName="НоменклатурнаяГруппа_Key"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[НоменклатурнаяГруппа_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[НоменклатурнаяГруппа_Key]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[ОсновноеИзображение_Key]"
+                      cachedDataType="guid"
+                      cachedName="ОсновноеИзображение_Key"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ОсновноеИзображение_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ОсновноеИзображение_Key]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[ОсновнойПоставщик_Key]"
+                      cachedDataType="guid"
+                      cachedName="ОсновнойПоставщик_Key"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ОсновнойПоставщик_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ОсновнойПоставщик_Key]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[ОтветственныйМенеджерЗаПокупки_Key]"
+                      cachedDataType="guid"
+                      cachedName="ОтветственныйМенеджерЗаПокупки_Key"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ОтветственныйМенеджерЗаПокупки_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ОтветственныйМенеджерЗаПокупки_Key]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[СтранаПроисхождения_Key]"
+                      cachedDataType="guid"
+                      cachedName="СтранаПроисхождения_Key"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[СтранаПроисхождения_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[СтранаПроисхождения_Key]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[НомерГТД_Key]"
+                      cachedDataType="guid"
+                      cachedName="НомерГТД_Key"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[НомерГТД_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[НомерГТД_Key]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[СтатьяЗатрат_Key]"
+                      cachedDataType="guid"
+                      cachedName="СтатьяЗатрат_Key"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[СтатьяЗатрат_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[СтатьяЗатрат_Key]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[ТребуетсяВнешняяСертификация]"
+                      cachedDataType="bool"
+                      cachedName="ТребуетсяВнешняяСертификация"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ТребуетсяВнешняяСертификация]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ТребуетсяВнешняяСертификация]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[ТребуетсяВнутренняяСертификация]"
+                      cachedDataType="bool"
+                      cachedName="ТребуетсяВнутренняяСертификация"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ТребуетсяВнутренняяСертификация]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ТребуетсяВнутренняяСертификация]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[Производитель_Key]"
+                      cachedDataType="guid"
+                      cachedName="Производитель_Key"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Производитель_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Производитель_Key]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[ВестиСерийныеНомера]"
+                      cachedDataType="bool"
+                      cachedName="ВестиСерийныеНомера"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ВестиСерийныеНомера]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ВестиСерийныеНомера]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[Комплект]"
+                      cachedDataType="bool"
+                      cachedName="Комплект"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Комплект]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Комплект]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[НаправлениеВыпуска]"
+                      cachedDataType="nText"
+                      cachedName="НаправлениеВыпуска"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[НаправлениеВыпуска]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[НаправлениеВыпуска]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[НаправлениеСписанияВыпущеннойПродукции_Key]"
+                      cachedDataType="guid"
+                      cachedName="НаправлениеСписанияВыпущеннойПродукции_Key"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[НаправлениеСписанияВыпущеннойПродукции_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[НаправлениеСписанияВыпущеннойПродукции_Key]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[ПорядокПрисвоенияСерийногоНомера_Key]"
+                      cachedDataType="guid"
+                      cachedName="ПорядокПрисвоенияСерийногоНомера_Key"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ПорядокПрисвоенияСерийногоНомера_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ПорядокПрисвоенияСерийногоНомера_Key]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[ЦеноваяГруппа_Key]"
+                      cachedDataType="guid"
+                      cachedName="ЦеноваяГруппа_Key"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ЦеноваяГруппа_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ЦеноваяГруппа_Key]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[ОКП_Key]"
+                      cachedDataType="guid"
+                      cachedName="ОКП_Key"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ОКП_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ОКП_Key]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[ЕдиницаИзмеренияМест_Key]"
+                      cachedDataType="guid"
+                      cachedName="ЕдиницаИзмеренияМест_Key"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ЕдиницаИзмеренияМест_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ЕдиницаИзмеренияМест_Key]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[ДополнительноеОписаниеНоменклатуры]"
+                      cachedDataType="nText"
+                      cachedName="ДополнительноеОписаниеНоменклатуры"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ДополнительноеОписаниеНоменклатуры]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ДополнительноеОписаниеНоменклатуры]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[Импортер_Key]"
+                      cachedDataType="guid"
+                      cachedName="Импортер_Key"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Импортер_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Импортер_Key]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[КодТНВЭД_Key]"
+                      cachedDataType="guid"
+                      cachedName="КодТНВЭД_Key"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[КодТНВЭД_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[КодТНВЭД_Key]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[ДополнительноеОписаниеНоменклатурыВФорматеHTML]"
+                      cachedDataType="bool"
+                      cachedName="ДополнительноеОписаниеНоменклатурыВФорматеHTML"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ДополнительноеОписаниеНоменклатурыВФорматеHTML]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ДополнительноеОписаниеНоменклатурыВФорматеHTML]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[АлкогольнаяПродукция]"
+                      cachedDataType="bool"
+                      cachedName="АлкогольнаяПродукция"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[АлкогольнаяПродукция]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[АлкогольнаяПродукция]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[ИмпортнаяАлкогольнаяПродукция]"
+                      cachedDataType="bool"
+                      cachedName="ИмпортнаяАлкогольнаяПродукция"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ИмпортнаяАлкогольнаяПродукция]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ИмпортнаяАлкогольнаяПродукция]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[АлкогольнаяПродукцияВоВскрытойТаре]"
+                      cachedDataType="bool"
+                      cachedName="АлкогольнаяПродукцияВоВскрытойТаре"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[АлкогольнаяПродукцияВоВскрытойТаре]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[АлкогольнаяПродукцияВоВскрытойТаре]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[ОбъемДАЛ]"
+                      cachedDataType="r8"
+                      cachedName="ОбъемДАЛ"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ОбъемДАЛ]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ОбъемДАЛ]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[ВидАлкогольнойПродукцииЕГАИС_Key]"
+                      cachedDataType="guid"
+                      cachedName="ВидАлкогольнойПродукцииЕГАИС_Key"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ВидАлкогольнойПродукцииЕГАИС_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ВидАлкогольнойПродукцииЕГАИС_Key]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[Крепость]"
+                      cachedDataType="r8"
+                      cachedName="Крепость"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Крепость]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Крепость]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[НаименованиеПолное]"
+                      cachedDataType="nText"
+                      cachedName="НаименованиеПолное"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[НаименованиеПолное]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[НаименованиеПолное]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[Альфа_ТорговаяМарка_Key]"
+                      cachedDataType="guid"
+                      cachedName="Альфа_ТорговаяМарка_Key"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Альфа_ТорговаяМарка_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Альфа_ТорговаяМарка_Key]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[Аналог_Key]"
+                      cachedDataType="guid"
+                      cachedName="Аналог_Key"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Аналог_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Аналог_Key]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[ПризнакЦветности]"
+                      cachedDataType="bool"
+                      cachedName="ПризнакЦветности"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ПризнакЦветности]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ПризнакЦветности]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[ТабачнаяПродукция]"
+                      cachedDataType="bool"
+                      cachedName="ТабачнаяПродукция"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ТабачнаяПродукция]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ТабачнаяПродукция]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[КодРаздел7ДекларацииНДС_Key]"
+                      cachedDataType="guid"
+                      cachedName="КодРаздел7ДекларацииНДС_Key"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[КодРаздел7ДекларацииНДС_Key]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[КодРаздел7ДекларацииНДС_Key]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[ОбувнаяПродукция]"
+                      cachedDataType="bool"
+                      cachedName="ОбувнаяПродукция"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ОбувнаяПродукция]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ОбувнаяПродукция]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[ВидНоменклатурнойКлассификации]"
+                      cachedDataType="nText"
+                      cachedName="ВидНоменклатурнойКлассификации"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ВидНоменклатурнойКлассификации]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ВидНоменклатурнойКлассификации]" />
+                    <inputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[ВидПродукцииИС]"
+                      cachedDataType="nText"
+                      cachedName="ВидПродукцииИС"
+                      externalMetadataColumnId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ВидПродукцииИС]"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[ВидПродукцииИС]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Ref_Key]"
+                      dataType="guid"
+                      name="Ref_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Predefined]"
+                      dataType="bool"
+                      name="Predefined" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[DataVersion]"
+                      dataType="nText"
+                      name="DataVersion" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Description]"
+                      dataType="nText"
+                      name="Description" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Code]"
+                      dataType="nText"
+                      name="Code" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Parent_Key]"
+                      dataType="guid"
+                      name="Parent_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[IsFolder]"
+                      dataType="bool"
+                      name="IsFolder" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[DeletionMark]"
+                      dataType="bool"
+                      name="DeletionMark" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Артикул]"
+                      dataType="nText"
+                      name="Артикул" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ВидНоменклатуры_Key]"
+                      dataType="guid"
+                      name="ВидНоменклатуры_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Весовой]"
+                      dataType="bool"
+                      name="Весовой" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ВесовойКоэффициентВхождения]"
+                      dataType="i8"
+                      name="ВесовойКоэффициентВхождения" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ВестиОперативныйУчетОстатковНЗП]"
+                      dataType="bool"
+                      name="ВестиОперативныйУчетОстатковНЗП" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ВестиПартионныйУчетПоСериям]"
+                      dataType="bool"
+                      name="ВестиПартионныйУчетПоСериям" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ВестиУчетПоСериям]"
+                      dataType="bool"
+                      name="ВестиУчетПоСериям" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ВестиУчетПоСериямВНЗП]"
+                      dataType="bool"
+                      name="ВестиУчетПоСериямВНЗП" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ВестиУчетПоХарактеристикам]"
+                      dataType="bool"
+                      name="ВестиУчетПоХарактеристикам" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ВидВоспроизводства]"
+                      dataType="nText"
+                      name="ВидВоспроизводства" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[БазоваяЕдиницаИзмерения_Key]"
+                      dataType="guid"
+                      name="БазоваяЕдиницаИзмерения_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ЕдиницаДляОтчетов_Key]"
+                      dataType="guid"
+                      name="ЕдиницаДляОтчетов_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ЕдиницаХраненияОстатков_Key]"
+                      dataType="guid"
+                      name="ЕдиницаХраненияОстатков_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[СтавкаНДС]"
+                      dataType="nText"
+                      name="СтавкаНДС" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Набор]"
+                      dataType="bool"
+                      name="Набор" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[НазначениеИспользования_Key]"
+                      dataType="guid"
+                      name="НазначениеИспользования_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Комментарий]"
+                      dataType="nText"
+                      name="Комментарий" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Услуга]"
+                      dataType="bool"
+                      name="Услуга" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[НоменклатурнаяГруппаЗатрат_Key]"
+                      dataType="guid"
+                      name="НоменклатурнаяГруппаЗатрат_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[НоменклатурнаяГруппа_Key]"
+                      dataType="guid"
+                      name="НоменклатурнаяГруппа_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ОсновноеИзображение_Key]"
+                      dataType="guid"
+                      name="ОсновноеИзображение_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ОсновнойПоставщик_Key]"
+                      dataType="guid"
+                      name="ОсновнойПоставщик_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ОтветственныйМенеджерЗаПокупки_Key]"
+                      dataType="guid"
+                      name="ОтветственныйМенеджерЗаПокупки_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[СтранаПроисхождения_Key]"
+                      dataType="guid"
+                      name="СтранаПроисхождения_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[НомерГТД_Key]"
+                      dataType="guid"
+                      name="НомерГТД_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[СтатьяЗатрат_Key]"
+                      dataType="guid"
+                      name="СтатьяЗатрат_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ТребуетсяВнешняяСертификация]"
+                      dataType="bool"
+                      name="ТребуетсяВнешняяСертификация" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ТребуетсяВнутренняяСертификация]"
+                      dataType="bool"
+                      name="ТребуетсяВнутренняяСертификация" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Производитель_Key]"
+                      dataType="guid"
+                      name="Производитель_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ВестиСерийныеНомера]"
+                      dataType="bool"
+                      name="ВестиСерийныеНомера" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Комплект]"
+                      dataType="bool"
+                      name="Комплект" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[НаправлениеВыпуска]"
+                      dataType="nText"
+                      name="НаправлениеВыпуска" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[НаправлениеСписанияВыпущеннойПродукции_Key]"
+                      dataType="guid"
+                      name="НаправлениеСписанияВыпущеннойПродукции_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ПорядокПрисвоенияСерийногоНомера_Key]"
+                      dataType="guid"
+                      name="ПорядокПрисвоенияСерийногоНомера_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ЦеноваяГруппа_Key]"
+                      dataType="guid"
+                      name="ЦеноваяГруппа_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ОКП_Key]"
+                      dataType="guid"
+                      name="ОКП_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ЕдиницаИзмеренияМест_Key]"
+                      dataType="guid"
+                      name="ЕдиницаИзмеренияМест_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ДополнительноеОписаниеНоменклатуры]"
+                      dataType="nText"
+                      name="ДополнительноеОписаниеНоменклатуры" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Импортер_Key]"
+                      dataType="guid"
+                      name="Импортер_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[КодТНВЭД_Key]"
+                      dataType="guid"
+                      name="КодТНВЭД_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ДополнительноеОписаниеНоменклатурыВФорматеHTML]"
+                      dataType="bool"
+                      name="ДополнительноеОписаниеНоменклатурыВФорматеHTML" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[АлкогольнаяПродукция]"
+                      dataType="bool"
+                      name="АлкогольнаяПродукция" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ИмпортнаяАлкогольнаяПродукция]"
+                      dataType="bool"
+                      name="ИмпортнаяАлкогольнаяПродукция" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[АлкогольнаяПродукцияВоВскрытойТаре]"
+                      dataType="bool"
+                      name="АлкогольнаяПродукцияВоВскрытойТаре" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ОбъемДАЛ]"
+                      dataType="r8"
+                      name="ОбъемДАЛ" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ВидАлкогольнойПродукцииЕГАИС_Key]"
+                      dataType="guid"
+                      name="ВидАлкогольнойПродукцииЕГАИС_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Крепость]"
+                      dataType="r8"
+                      name="Крепость" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[НаименованиеПолное]"
+                      dataType="nText"
+                      name="НаименованиеПолное" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Альфа_ТорговаяМарка_Key]"
+                      dataType="guid"
+                      name="Альфа_ТорговаяМарка_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Аналог_Key]"
+                      dataType="guid"
+                      name="Аналог_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ПризнакЦветности]"
+                      dataType="bool"
+                      name="ПризнакЦветности" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ТабачнаяПродукция]"
+                      dataType="bool"
+                      name="ТабачнаяПродукция" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[КодРаздел7ДекларацииНДС_Key]"
+                      dataType="guid"
+                      name="КодРаздел7ДекларацииНДС_Key" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ОбувнаяПродукция]"
+                      dataType="bool"
+                      name="ОбувнаяПродукция" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ВидНоменклатурнойКлассификации]"
+                      dataType="nText"
+                      name="ВидНоменклатурнойКлассификации" />
+                    <externalMetadataColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[ВидПродукцииИС]"
+                      dataType="nText"
+                      name="ВидПродукцииИС" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Outputs[Вывод ошибок назначения &quot;OLE DB&quot;]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Вывод ошибок назначения &quot;OLE DB&quot;"
+                  synchronousInputId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Outputs[Вывод ошибок назначения &quot;OLE DB&quot;].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Outputs[Вывод ошибок назначения &quot;OLE DB&quot;].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Outputs[Вывод ошибок назначения &quot;OLE DB&quot;].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Outputs[Вывод ошибок назначения &quot;OLE DB&quot;].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Задача потока данных\Уточняющий запрос"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Уточняющий запрос;Корпорация Майкрософт. Microsoft SQL Server. (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены. http://www.microsoft.com/sql/support;6"
+              description="Присоединяет дополнительные столбцы к потоку данных путем поиска значений в таблице. Пример: соединение со столбцом &quot;employee id&quot; таблицы employees позволяет получить значения &quot;hire date&quot; и &quot;employee name&quot;. Рекомендуется воспользоваться этим преобразованием, если таблица подстановки не помещается в памяти."
+              name="Уточняющий запрос"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Задает инструкцию SQL, которая формирует таблицу уточняющих запросов."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[Справочник_Номенклатура]</property>
+                <property
+                  dataType="System.String"
+                  description="Задает инструкцию SQL, которая использует параметры для формирования таблицы уточняющих запросов."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[Справочник_Номенклатура]) [refTable]
+where [refTable].[Ref_Key] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает тип соединения, используемого для доступа к эталонному набору данных."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает тип кэша таблицы уточняющих запросов."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает, как преобразование &quot;Уточняющий запрос&quot; обрабатывает строки без совпадающих элементов в эталонном наборе данных."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает долю кэша (в процентах), выделенную для строк без совпадающих элементов в эталонном наборе данных."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Максимальный объем памяти для кэша ссылок на 32-разрядной платформе."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Максимальный объем памяти для кэша ссылок на 64-разрядной платформе."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает, следует ли ссылаться на метаданные в формате XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Ref_Key" dataType="DT_GUID" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Predefined" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="DataVersion" dataType="DT_NTEXT" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Description" dataType="DT_NTEXT" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Code" dataType="DT_NTEXT" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Parent_Key" dataType="DT_GUID" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="IsFolder" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="DeletionMark" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Артикул" dataType="DT_NTEXT" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ВидНоменклатуры_Key" dataType="DT_GUID" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Весовой" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ВесовойКоэффициентВхождения" dataType="DT_I8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ВестиОперативныйУчетОстатковНЗП" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ВестиПартионныйУчетПоСериям" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ВестиУчетПоСериям" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ВестиУчетПоСериямВНЗП" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ВестиУчетПоХарактеристикам" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ВидВоспроизводства" dataType="DT_NTEXT" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="БазоваяЕдиницаИзмерения_Key" dataType="DT_GUID" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ЕдиницаДляОтчетов_Key" dataType="DT_GUID" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ЕдиницаХраненияОстатков_Key" dataType="DT_GUID" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="СтавкаНДС" dataType="DT_NTEXT" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Набор" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="НазначениеИспользования_Key" dataType="DT_GUID" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Комментарий" dataType="DT_NTEXT" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Услуга" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="НоменклатурнаяГруппаЗатрат_Key" dataType="DT_GUID" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="НоменклатурнаяГруппа_Key" dataType="DT_GUID" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ОсновноеИзображение_Key" dataType="DT_GUID" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ОсновнойПоставщик_Key" dataType="DT_GUID" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ОтветственныйМенеджерЗаПокупки_Key" dataType="DT_GUID" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="СтранаПроисхождения_Key" dataType="DT_GUID" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="НомерГТД_Key" dataType="DT_GUID" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="СтатьяЗатрат_Key" dataType="DT_GUID" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ТребуетсяВнешняяСертификация" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ТребуетсяВнутренняяСертификация" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Производитель_Key" dataType="DT_GUID" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ВестиСерийныеНомера" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Комплект" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="НаправлениеВыпуска" dataType="DT_NTEXT" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="НаправлениеСписанияВыпущеннойПродукции_Key" dataType="DT_GUID" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ПорядокПрисвоенияСерийногоНомера_Key" dataType="DT_GUID" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ЦеноваяГруппа_Key" dataType="DT_GUID" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ОКП_Key" dataType="DT_GUID" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ЕдиницаИзмеренияМест_Key" dataType="DT_GUID" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ДополнительноеОписаниеНоменклатуры" dataType="DT_NTEXT" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Импортер_Key" dataType="DT_GUID" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="КодТНВЭД_Key" dataType="DT_GUID" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ДополнительноеОписаниеНоменклатурыВФорматеHTML" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="АлкогольнаяПродукция" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ИмпортнаяАлкогольнаяПродукция" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="АлкогольнаяПродукцияВоВскрытойТаре" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ОбъемДАЛ" dataType="DT_R8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ВидАлкогольнойПродукцииЕГАИС_Key" dataType="DT_GUID" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Крепость" dataType="DT_R8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="НаименованиеПолное" dataType="DT_NTEXT" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Альфа_ТорговаяМарка_Key" dataType="DT_GUID" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Аналог_Key" dataType="DT_GUID" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ПризнакЦветности" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ТабачнаяПродукция" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="КодРаздел7ДекларацииНДС_Key" dataType="DT_GUID" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ОбувнаяПродукция" dataType="DT_BOOL" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ВидНоменклатурнойКлассификации" dataType="DT_NTEXT" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ВидПродукцииИС" dataType="DT_NTEXT" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Задает список идентификаторов журнала обращений и преобразований, сопоставляемый с параметрами, которые использует инструкция SQL в свойстве SQLCommand. Элементы списка разделяются точками с запятой."
+                  name="ParameterMap">#{Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Ref_Key]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает кодовую страницу столбца, используемую, когда недоступны сведения о кодовой странице из источника данных."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Определяет, должны ли повторяющиеся ключи в ссылочных данных обрабатываться как ошибки при использовании режима полного кэширования."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Задача потока данных\Уточняющий запрос.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.DataTest]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.DataTest]"
+                  description="Диспетчер соединений, используемый для доступа к данным уточняющих запросов."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Задача потока данных\Уточняющий запрос.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;]"
+                  name="Ввод преобразования &quot;Уточняющий запрос&quot;">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Задача потока данных\Уточняющий запрос.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;].Columns[Ref_Key]"
+                      cachedDataType="guid"
+                      cachedName="Ref_Key"
+                      lineageId="Package\Задача потока данных\Источник OData.Outputs[Output].Columns[Ref_Key]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Указывает в ссылочной таблице столбец, который соединен с данным столбцом."
+                          name="JoinToReferenceColumn">Ref_Key</property>
+                        <property
+                          dataType="System.Null"
+                          description="Указывает в ссылочной таблице столбец, из которого копируется данный столбец."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Задача потока данных\Уточняющий запрос.Outputs[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;]"
+                  errorOrTruncationOperation="Уточняющий запрос"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Вывод совпадений преобразования &quot;Уточняющий запрос&quot;"
+                  synchronousInputId="Package\Задача потока данных\Уточняющий запрос.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Задача потока данных\Уточняющий запрос.Outputs[Выход несовпадающих строк уточняющего запроса]"
+                  description="Вывод преобразования &quot;Уточняющий запрос&quot;, которое обрабатывает строки без совпадающих элементов в эталонном наборе данных. Используйте этот выход, если свойство NoMatchBehavior имеет значение &quot;Отправить строки без совпадающих элементов в выход несовпадающих строк&quot;."
+                  exclusionGroup="1"
+                  name="Выход несовпадающих строк уточняющего запроса"
+                  synchronousInputId="Package\Задача потока данных\Уточняющий запрос.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Задача потока данных\Уточняющий запрос.Outputs[Вывод ошибок преобразования &quot;Уточняющий запрос&quot;]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Вывод ошибок преобразования &quot;Уточняющий запрос&quot;"
+                  synchronousInputId="Package\Задача потока данных\Уточняющий запрос.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Задача потока данных\Уточняющий запрос.Outputs[Вывод ошибок преобразования &quot;Уточняющий запрос&quot;].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных\Уточняющий запрос.Outputs[Вывод ошибок преобразования &quot;Уточняющий запрос&quot;].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Задача потока данных\Уточняющий запрос.Outputs[Вывод ошибок преобразования &quot;Уточняющий запрос&quot;].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Задача потока данных\Уточняющий запрос.Outputs[Вывод ошибок преобразования &quot;Уточняющий запрос&quot;].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Задача потока данных.Paths[Output]"
+              endId="Package\Задача потока данных\Уточняющий запрос.Inputs[Ввод преобразования &quot;Уточняющий запрос&quot;]"
+              name="Output"
+              startId="Package\Задача потока данных\Источник OData.Outputs[Output]" />
+            <path
+              refId="Package\Задача потока данных.Paths[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;]"
+              endId="Package\Задача потока данных\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;]"
+              name="Вывод совпадений преобразования &quot;Уточняющий запрос&quot;"
+              startId="Package\Задача потока данных\Уточняющий запрос.Outputs[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--В данном разделе CDATA содержатся сведения о макете пакета. В данном разделе содержатся сведения о координатах (x,y), ширине и высоте.-->
+<!--В случае возникновения ошибки при редактировании этого раздела вручную его можно удалить. -->
+<!--Пакет можно загрузить обычным образом, но прежние сведения о макете будут утеряны, и конструктор автоматически перераспределит элементы в области конструктора.-->
+<Objects
+  Version="8">
+  <!--Все приведенные ниже узлы будут содержать свойства, не влияющие на поведение среды выполнения.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="190,42"
+          Id="Package\Задача потока данных"
+          TopLeft="187,146" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Задача потока данных">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="185,42"
+          Id="Package\Задача потока данных\Назначение &quot;OLE DB&quot;"
+          TopLeft="467,529" />
+        <NodeLayout
+          Size="158,42"
+          Id="Package\Задача потока данных\Источник OData"
+          TopLeft="246,120" />
+        <NodeLayout
+          Size="178,42"
+          Id="Package\Задача потока данных\Уточняющий запрос"
+          TopLeft="295,303" />
+        <EdgeLayout
+          Id="Package\Задача потока данных.Paths[Output]"
+          TopLeft="325,162">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="59,141"
+              Start="0,0"
+              End="59,133.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,66.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,66.5"
+                    Point2="0,70.5"
+                    Point3="4,70.5" />
+                  <mssgle:LineSegment
+                    End="55,70.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="55,70.5"
+                    Point2="59,70.5"
+                    Point3="59,74.5" />
+                  <mssgle:LineSegment
+                    End="59,133.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Задача потока данных.Paths[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;]"
+          TopLeft="384,345">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="175.5,184"
+              Start="0,0"
+              End="175.5,176.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,88" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,88"
+                    Point2="0,92"
+                    Point3="4,92" />
+                  <mssgle:LineSegment
+                    End="171.5,92" />
+                  <mssgle:CubicBezierSegment
+                    Point1="171.5,92"
+                    Point2="175.5,92"
+                    Point3="175.5,96" />
+                  <mssgle:LineSegment
+                    End="175.5,176.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-46.93986328125,97,269.3797265625,12"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Задача потока данных\Назначение &quot;OLE DB&quot;">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Задача потока данных\Уточняющий запрос">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[Справочник_Номенклатура]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
