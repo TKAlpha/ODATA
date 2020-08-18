@@ -11,8 +11,8 @@
   DTS:LocaleID="1049"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="4"
-  DTS:VersionGUID="{50E2675B-E6E3-460C-9EA5-EDEF92A1D2D0}">
+  DTS:VersionBuild="5"
+  DTS:VersionGUID="{3D321090-BB7E-4203-8074-EFEBA44AB023}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -30,7 +30,7 @@
           AuthType="BasicAuthentication">
           <Password
             Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA5Ldm4aK1UUKnEovvriMsbgAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAB+j4tpYnMqgk0UI7hv/X3R00uEOeM7agMTFhDwhsNJSAAAAAAOgAAAAAIAACAAAABh2q3jeeqnAidF+6RZF6qZwrc8+QqvQuRItiECWvjlVyAAAACffI6VYsu/LOQPsHaoOGxCM97ZWLp1tvEVxBnGGNGkUkAAAAD4l2kmSMyBIMWp6llLev+C7n4w0Eswrd6Wn/A4SQ2HSi2zDMZEoWBUh4nk8dPvV6maAYjQmkQ4Jh50TXyWhc6u</Password>
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA5Ldm4aK1UUKnEovvriMsbgAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAADoIPVbkivsXVvw8R7EtD9Hu3rEjynzkmClgi2aixkV8wAAAAAOgAAAAAIAACAAAADxaNyW4KZ6sA1mCaTg89fHxzPZUahjb25WkK/AVNWruCAAAAAyjo8ABEQ7eUueAvBcCf1OybReuiFB0BBAauw1dGB+WEAAAADtxbpgQtMAllJF4BGh6mhFYZzQfFIAIlOS8jb3tAwzW8S5isEycuykqaM/UcvUdCpP4pItmdX1wOggC9y3V3Mn</Password>
         </ODataConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
@@ -2228,40 +2228,6 @@ where [refTable].[Ref_Key] = ?</property>
           Id="Package\Задача потока данных\Уточняющий запрос"
           TopLeft="295,303" />
         <EdgeLayout
-          Id="Package\Задача потока данных.Paths[Output]"
-          TopLeft="325,162">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="59,141"
-              Start="0,0"
-              End="59,133.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,66.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,66.5"
-                    Point2="0,70.5"
-                    Point3="4,70.5" />
-                  <mssgle:LineSegment
-                    End="55,70.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="55,70.5"
-                    Point2="59,70.5"
-                    Point3="59,74.5" />
-                  <mssgle:LineSegment
-                    End="59,133.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
           Id="Package\Задача потока данных.Paths[Вывод совпадений преобразования &quot;Уточняющий запрос&quot;]"
           TopLeft="384,345">
           <EdgeLayout.Curve>
@@ -2297,6 +2263,40 @@ where [refTable].[Ref_Key] = ?</property>
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Задача потока данных.Paths[Output]"
+          TopLeft="325,162">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="59,141"
+              Start="0,0"
+              End="59,133.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,66.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,66.5"
+                    Point2="0,70.5"
+                    Point3="4,70.5" />
+                  <mssgle:LineSegment
+                    End="55,70.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="55,70.5"
+                    Point2="59,70.5"
+                    Point3="59,74.5" />
+                  <mssgle:LineSegment
+                    End="59,133.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
@@ -2319,7 +2319,7 @@ where [refTable].[Ref_Key] = ?</property>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:boolean">false</Value>
+          type="q2:string">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -2329,7 +2329,7 @@ where [refTable].[Ref_Key] = ?</property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:int">0</Value>
+          type="q4:string">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
